@@ -6,7 +6,7 @@
 /*   By: mhamdali <mhamdali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 21:58:29 by mhamdali          #+#    #+#             */
-/*   Updated: 2025/07/31 22:07:11 by mhamdali         ###   ########.fr       */
+/*   Updated: 2025/08/07 03:12:37 by mhamdali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,7 @@ int	ft_isalnum(int c)
 	return (0);
 }
 
-
-static int	handle_overflow(unsigned long result, int sign)
-{
-	if ((result >= 9223372036854775807) && sign == 1)
-		return (-1);
-	else if (result >= 9223372036854775807 && sign == -1)
-		return (0);
-	return (result);
-}
-
-int	ft_atoi(const char *str)
+int	ft_atoi(const char *str, t_garbage *gc)
 {
 	unsigned long		result;
 	size_t				i;
@@ -80,12 +70,25 @@ int	ft_atoi(const char *str)
 			sign = sign * -1;
 		i++;
 	}
-	while (str[i] != '\0' && str[i] >= '0' && str[i] <= '9')
+	while (str[i] != '\0' && str[i] >= '0' && str[i] <= '9' )
 	{
 		result = (result * 10) + str[i] - '0';
-		if (result >= 9223372036854775807)
-			return (handle_overflow(result, sign));
+		if (result > 255)
+			return (ft_putstr_fd("ERROR:\nRGB NUMBRE\n",2), exit(1), -1);
 		i++;
 	}
-	return ((int)result * sign);
+	if (str[i] == ' ')
+	{
+		ft_putstr_fd("ERROR:\nRGB\n",2);
+		cleanup_grb_cltr(gc);
+		exit(1);
+	}
+	int result_sign = result * sign;
+	if (result_sign < 0)
+	{
+		ft_putstr_fd("ERROR:\nRGB NUMBRE\n",2);
+		cleanup_grb_cltr(gc);
+		exit(1);
+	}
+	return (result_sign);
 }

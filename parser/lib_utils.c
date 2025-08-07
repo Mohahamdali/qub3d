@@ -6,24 +6,45 @@
 /*   By: mhamdali <mhamdali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 22:01:23 by mhamdali          #+#    #+#             */
-/*   Updated: 2025/07/31 22:07:03 by mhamdali         ###   ########.fr       */
+/*   Updated: 2025/08/07 01:11:03 by mhamdali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../qub3d.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
+{
+	size_t			i;
+	unsigned char	*dest;
+	unsigned char	*source;
+
+	dest = (unsigned char *)dst;
+	source = (unsigned char *)src;
+	i = 0;
+	if (!dst && !src)
+		return (NULL);
+	if (dst == src)
+		return (dst);
+	while (i < n)
+	{
+		dest[i] = source[i];
+		i++;
+	}
+	return (dest);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2, t_garbage *gc)
 {
 	char	*result;
 
 	if (!s1 && !s2)
 		return (NULL);
 	if (s1 == NULL)
-		return (ft_strdup(s2));
-	else if (s2 == NULL)
-		return (ft_strdup(s1));
-	result = ((char *)malloc (ft_strlen(s1) + ft_strlen(s2) + 2));
+		return (g_strdup(gc, s2));
+	else if (*s2 == '\0')
+		return (g_strdup(gc, "\0"));
+	result = ((char *)g_malloc (gc, ft_strlen(s1) + ft_strlen(s2) + 2));
 	if (!result)
 		return (NULL);
 	ft_strlcpy (result, s1, ft_strlen(s1) + 1);

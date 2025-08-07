@@ -6,7 +6,7 @@
 /*   By: mhamdali <mhamdali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 22:12:24 by mhamdali          #+#    #+#             */
-/*   Updated: 2025/07/31 22:20:50 by mhamdali         ###   ########.fr       */
+/*   Updated: 2025/08/07 00:59:30 by mhamdali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,29 +37,6 @@ size_t	ft_strlen(const char *str)
 		i++;
 	}
 	return (i);
-}
-
-
-char	*ft_strdup(const char *src)
-{
-	size_t	length;
-	char	*dest;
-	size_t	i;
-
-	length = ft_strlen (src);
-	i = 0;
-	dest = ((char *)malloc ((length + 1)));
-	if (dest == NULL)
-	{
-		return (NULL);
-	}
-	while (src[i] != '\0')
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
 }
 
 int	ft_strcmp(const char *s1, const char *s2)

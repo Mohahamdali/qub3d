@@ -6,7 +6,7 @@
 /*   By: mhamdali <mhamdali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 02:19:18 by mhamdali          #+#    #+#             */
-/*   Updated: 2025/08/01 02:47:41 by mhamdali         ###   ########.fr       */
+/*   Updated: 2025/08/06 22:51:51 by mhamdali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ int check_walls(t_file *file)
     while (x < len)
     {
         if (file->map[0][x] != '1' && file->map[0][x] != ' ')
-        {
             return -1;
-        }
         x++;
     }
    

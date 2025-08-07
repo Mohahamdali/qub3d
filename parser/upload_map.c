@@ -6,13 +6,13 @@
 /*   By: mhamdali <mhamdali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 22:29:29 by mhamdali          #+#    #+#             */
-/*   Updated: 2025/08/01 01:34:57 by mhamdali         ###   ########.fr       */
+/*   Updated: 2025/08/07 01:23:09 by mhamdali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../qub3d.h"
 
-void parse_color(char *str, int color[3])
+void parse_color(char *str, int color[3], t_garbage *gc)
 {
     int i = 0;
     char *tmp;
@@ -29,12 +29,14 @@ void parse_color(char *str, int color[3])
             *tmp = '\0';
             tmp++;
         }
-        color[i] = ft_atoi(token);
+        color[i] = ft_atoi(token, gc);
         i++;
     }
+    if (*tmp != '\0')
+        return (ft_putstr_fd("ERROR\nMORE RGB\n",2),cleanup_grb_cltr(gc), exit(1));
 }
 
-int count_map_lines(char *filename)
+int count_map_lines(char *filename, t_garbage *gc)
 {
     int fd = open(filename, O_RDONLY);
     if (fd == -1)
@@ -44,7 +46,7 @@ int count_map_lines(char *filename)
     int this_is_map = 0;
     int map_lines = 0;
 
-    while ((line = get_next_line(fd)) != NULL)
+    while ((line = get_next_line(fd, gc)) != NULL)
     {
         if (!this_is_map)
         {
@@ -53,52 +55,101 @@ int count_map_lines(char *filename)
         }
         if (this_is_map)
             map_lines++;
-
-        free(line);
     }
     close(fd);
     return map_lines;
 }
 
-void if_all (t_file *file, char *line, int *this_is_map)
+void if_all (t_file *file, char *line, int *this_is_map, t_garbage *gc)
 {
-    if (line[0] == '1' || line[0] == '0' || line[0] == ' ')
+    if (!*this_is_map && is_map_line(line))
+    {
         *this_is_map = 1;
+        return;
+    }
     if (ft_strncmp(line, "NO ", 3) == 0)
     {
-        free(file->north_texture);
-        file->north_texture = ft_strdup(line + 3);
+        if(file ->flag.no_set)
+        {
+            ft_putstr_fd("Error\nDuplicate: NO\n",2);
+            cleanup_grb_cltr(gc);
+            exit(1);
+        }
+        file->textures.north_texture = g_strdup(gc, line + 3);
+        file -> flag.no_set = 1;
     }
     else if (ft_strncmp(line, "SO ", 3) == 0)
     {
-        free(file->south_texture);
-        file->south_texture = ft_strdup(line + 3);
+        if(file ->flag.so_set)
+        {
+            ft_putstr_fd("Error\nDuplicate: SO\n",2);
+            cleanup_grb_cltr(gc);
+            exit(1);
+        }
+        file->textures.south_texture = g_strdup(gc, line + 3);
+        file -> flag.so_set = 1;
     }
     else if (ft_strncmp(line, "WE ", 3) == 0)
     {
-        free(file->west_texture);
-        file->west_texture = ft_strdup(line + 3);
+        if (file -> flag.we_set)
+        {
+            ft_putstr_fd("Error\nDuplicate: WE\n",2);
+            cleanup_grb_cltr(gc);
+            exit(1);
+        }
+        file->textures.west_texture = g_strdup(gc, line + 3);
+        file -> flag.we_set = 1;
     }
     else if (ft_strncmp(line, "EA ", 3) == 0)
     {
-        free(file->east_texture);
-        file->east_texture = ft_strdup(line + 3);
+        if (file -> flag.east_set)
+        {
+            ft_putstr_fd("Error\nDuplicate: EA\n",2);
+            cleanup_grb_cltr(gc);
+            exit(1);
+        }
+        file->textures.east_texture = g_strdup(gc ,line + 3);
+         file -> flag.east_set = 1;
     }
     else if (ft_strncmp(line, "F ", 2) == 0)
-        parse_color(line + 2, file->floor_color);
+    {
+        if (file -> flag.floor_color_set)
+        {
+            ft_putstr_fd("Error\nDuplicate: F\n",2);
+            cleanup_grb_cltr(gc);
+            exit(1);
+        }
+        parse_color(line + 2, file->floor_color,gc);
+        file -> flag.floor_color_set = 1;
+    }
     else if (ft_strncmp(line, "C ", 2) == 0)
-        parse_color(line + 2, file->cealing_color);
+    {
+        if (file -> flag.cealing_color_set)
+        {
+            ft_putstr_fd("Error\nDuplicate: C\n",2);
+            cleanup_grb_cltr(gc);
+            exit(1);
+        }
+        parse_color(line + 2, file->cealing_color,gc);
+        file ->flag.cealing_color_set = 1;
+    }
+    else if (*line != '\n')
+    {
+        ft_putstr_fd("Error\nCheck if all required identifiers are present in the file\n",2);
+        cleanup_grb_cltr(gc);
+        exit(1);
+    }
+   
 }
 
-int upload_file (t_file *file, char *name_file)
+int upload_file (t_file *file, char *name_file, t_garbage *gc)
 {
     char *line;
     int fd;
-
-    file ->map_height = count_map_lines(name_file);
+    file ->map_height = count_map_lines(name_file, gc);
     if (file -> map_height <= 0)
         return -1;
-    file -> map = malloc (sizeof(char *) * file -> map_height);
+    file -> map = g_malloc (gc, sizeof(char *) * file -> map_height);
     if (!file -> map)
         return -1;
     int this_is_map = 0;
@@ -109,15 +160,17 @@ int upload_file (t_file *file, char *name_file)
         perror("fd");
         return -1;
     }
-    while ((line = get_next_line(fd)) != NULL)
+    while ((line = get_next_line(fd, gc)) != NULL)
     {
+       
         if (!this_is_map)
         {
-            if_all(file,line,&this_is_map);  
-        }
+            if_all(file,line,&this_is_map,gc);
+        } 
         if (this_is_map)
-            file -> map[i++] = ft_strdup(line);
-    free(line);
+        {
+            file -> map[i++] = g_strdup(gc, line);
+        }
 }
 file -> map[i] = NULL;
 close(fd);

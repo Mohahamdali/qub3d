@@ -4,7 +4,11 @@ SRCS =	main.c \
 		parser/lib_utils_3.c \
 		parser/get_next_line.c \
 		parser/upload_map.c \
-		parser/check_wall.c
+		parser/check_wall.c \
+		parser/upload_map_utils.c \
+		parser/garbage_collector.c \
+		parser/parser.c \
+		parser/find_player.c
 
 OBJ = $(SRCS:.c=.o)
 NAME = qub3d
