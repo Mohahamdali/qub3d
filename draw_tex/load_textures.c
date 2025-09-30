@@ -2,14 +2,8 @@
 #include "../qub3d.h"
 
 
-
-#include <errno.h>
-
-
-
 int load_single_img (void *mlx, t_img *img, char *path)
 {
-    errno = 0;
     img ->ptr = mlx_xpm_file_to_image(mlx, path, &img ->w, &img ->h);
     if (!img ->ptr)
     {
@@ -21,9 +15,8 @@ int load_single_img (void *mlx, t_img *img, char *path)
 }
 
 
-
 int load_images (t_file *file)
-{\
+{
     if (load_single_img (file ->app.mlx, &file->frame[0], file ->textures.north_texture))
         return 1;
     if (load_single_img (file -> app.mlx, &file ->frame[1], file ->textures.south_texture))
@@ -56,64 +49,51 @@ t_img  *choose_tex(t_file *file, t_algo algo)
     return img;
 }
 
-void main_draw(t_file *file, t_garbage *gc, t_app *app, int x)
+
+#include <math.h>
+
+
+
+void main_draw(t_file *file, t_app *app, int var)
 {
-    t_img *tex;
-    if (load_images(file))
-    {
-        cleanup_grb_cltr(gc);
-        exit(1);
-    }
+    t_img *tex = choose_tex(file, app->algo);
+    if (!tex)
+        return ;
+    double ray_dir = atan2(app->dir_y, app->dir_x);
+    double corrected_dist = app->algo.final_dist * cos(app->angle - ray_dir);
+    if (corrected_dist < 0.01)
+        corrected_dist = 0.01;
+    int line_h = file->img.h / corrected_dist;
 
-    tex = choose_tex(file, app->algo);
-
-    // Calculate wall hit position
     double wall_p;
     if (app->algo.wall_side == 0)
-        wall_p = app->player_y + app->algo.final_dist * app->dir_y;
+        wall_p = app->player_y + corrected_dist * app->dir_y;
     else
-        wall_p = app->player_x + app->algo.final_dist * app->dir_x;
-    wall_p -= floor(wall_p);
+        wall_p = app->player_x + corrected_dist * app->dir_x;
+    wall_p -= floor(wall_p); 
 
-    // Column height
-    int line_h = (int)(file->img.h / app->algo.final_dist);
-
-    // Texture X coordinate
-    int texx = (int)(wall_p * (double)(tex->w));
+    int texx = (int)(wall_p * tex->w);
     if ((app->algo.wall_side == 0 && app->algo.x_step_sign > 0) ||
         (app->algo.wall_side == 1 && app->algo.y_step_sign > 0))
         texx = tex->w - texx - 1;
-    if (texx < 0) texx = 0;
-    if (texx >= tex->w) texx = tex->w - 1;
 
-    // Texture vertical step
-    double step = (double)tex->h / line_h;
-    double texPos = 0.0; // start at top for each column
-
-    int start = file->start_draw;
-    int end   = file->end_draw;
-
-    for (int y = start; y < end; y++)
+    double step = 1.0 * tex->h / line_h;
+    double texPos = 0;
+    while (file->start_draw < file->end_draw)
     {
         int texY = (int)texPos;
-        if (texY < 0) texY = 0;
-        if (texY >= tex->h) texY = tex->h - 1;
-
-        char *pixel = tex->data + texY * tex->line_len + texx * (tex->bpp / 8);
-        int color = 0;
-
-        if (tex->bpp == 32)
-            color = *(int*)pixel;
-        else if (tex->bpp == 24)
-        {
-            unsigned char *p = (unsigned char*)pixel;
-            color = (p[0] << 16) | (p[1] << 8) | p[2];
-        }
-
-        put_px(&file->img, x, y, color);
-
+        if (texY < 0)
+            texY = 0;
+        if (texY >= tex->h) 
+            texY = tex->h - 1;
         texPos += step;
+        char *pixel = tex->data + (texY * tex->line_len + texx * (tex->bpp / 8));
+        int color;
+        unsigned char b = pixel[0];
+        unsigned char g = pixel[1];
+        unsigned char r = pixel[2];
+        color = (r << 16) | (g << 8) | b;
+        put_px(&file->img, var, file->start_draw, color);
+        file->start_draw++;
     }
 }
-
-

@@ -6,7 +6,7 @@
 /*   By: mhamdali <mhamdali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 03:02:13 by manter            #+#    #+#             */
-/*   Updated: 2025/09/30 14:03:10 by mhamdali         ###   ########.fr       */
+/*   Updated: 2025/09/30 15:29:35 by mhamdali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ static void build_3d(t_file *file, int var)
 	int		start_y;
 	int		end_y;
 	int		j;
-
-	wall_height = (1.0f / file->app.algo.final_dist) * file->img.w;
+    
+	wall_height = (float)file->img.h / file->app.algo.final_dist;
+    
 	start_y = (file->img.h  / 2) - (wall_height / 2);
 	end_y = start_y + wall_height;
 	j = 0;
@@ -28,7 +29,7 @@ static void build_3d(t_file *file, int var)
     int wall_color = WALL_LIGHT ;
     file ->start_draw = j;
     file ->end_draw = end_y;
-    main_draw(file, NULL,&file ->app, var);
+    main_draw(file,&file ->app, var);
     j = file->end_draw;
     while (j < file->img.h)
         put_px(&file->img, var, j++, FLOOR_COLOR);

@@ -1,7 +1,7 @@
-NO ./maps/nwe.xpm
-SO ./maps/nwe.xpm
-WE ./maps/nwe.xpm
-EA ./maps/nwe.xpm
+NO ./maps/x.xpm
+SO ./maps/x.xpm
+WE ./maps/x.xpm
+EA ./maps/x.xpm
 
 F 255,100,0
 C 225,30,0

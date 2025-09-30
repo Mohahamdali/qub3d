@@ -6,7 +6,7 @@
 /*   By: mhamdali <mhamdali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 21:38:03 by mhamdali          #+#    #+#             */
-/*   Updated: 2025/09/30 13:53:52 by mhamdali         ###   ########.fr       */
+/*   Updated: 2025/09/30 15:20:56 by mhamdali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int main(int ac, char **av)
 
     // DO NOT override spawn angle here (reference keeps the parsed angle)
     file.app.angle = 0.0f;  // ← keep this removed
-
     // Window size from map (clamped), keep since draw_frame uses img.w/h
     int win_w = (int)(file.map_width  * (float)TILE); // we need to set a default here no need to ues the maps size 
     int win_h = (int)(file.map_height * (float)TILE);
@@ -41,7 +40,12 @@ int main(int ac, char **av)
                                       &file.img.line_len, &file.img.endian);
     file.img.w = win_w;
     file.img.h = win_h;
-    
+    if (load_images(&file))
+    {
+        printf("Error: failed to load textures\n");
+        cleanup_grb_cltr(gc);
+        return 1;
+    }
     // Hooks: input + close + continuous render
     mlx_hook(file.app.win,  2, 1L<<0, (int (*)(void))key_hook, &file);     // KeyPress
     // If you add key_release:  mlx_hook(file.app.win, 3, 1L<<1, key_release, &file);

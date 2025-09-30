@@ -6,13 +6,13 @@
 /*   By: mhamdali <mhamdali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 21:50:22 by mhamdali          #+#    #+#             */
-/*   Updated: 2025/09/30 13:14:25 by mhamdali         ###   ########.fr       */
+/*   Updated: 2025/09/30 15:29:26 by mhamdali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdio.h>
-#include "minilibx-linux/mlx.h"
+#include <mlx.h>
 #include <stdlib.h>
 #include <math.h>   // at top
 #include <fcntl.h>
@@ -160,5 +160,6 @@ int ft_is_wall(int row, int col, t_file *file);
 void ft_building(t_file *file, float ray_angle, int var);
 int key_hook(int key, t_file *file);
 int draw_frame(t_file *file);
-void main_draw (t_file *file, t_garbage *gc, t_app *app, int var);
+void main_draw(t_file *file, t_app *app, int var);
+int load_images (t_file *file);
 #endif
