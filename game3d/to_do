@@ -1,8 +1,0 @@
-/// players angle in the first step 
-/// we need to set a default in the (file.map.w) no need to ues the maps size 
-/// in the recasting remove the fish eye fecte from the final dist
-
-//// be shure ffrom the 
-    app->algo.x_pos = (int) (app->player_y / (float)TILE);
-    app->algo.y_pos = (int) (app->player_x / (float)TILE);
-/// take care of the mouvments and seg
