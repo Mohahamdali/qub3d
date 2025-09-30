@@ -6,7 +6,7 @@
 /*   By: mhamdali <mhamdali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 00:54:14 by mhamdali          #+#    #+#             */
-/*   Updated: 2025/08/07 00:58:56 by mhamdali         ###   ########.fr       */
+/*   Updated: 2025/09/27 15:13:28 by mhamdali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,25 +91,30 @@ void	g_free_one_ptr(t_garbage *g_c, void *ptr)
 	}
 }
 
-void	cleanup_grb_cltr(t_garbage *g_c)
+void cleanup_grb_cltr(t_garbage *g_c)
 {
-	t_blk	*current;
-	t_blk	*next;
+    t_blk *current;
+    t_blk *next;
 
-	if (!g_c)
-		return ;
-	current = g_c->blk;
-	while (current)
-	{
-		next = current->next;
-		free(current->ptr);
-		current->ptr = NULL;
-		free(current);
-		current = NULL;
-		current = next;
-	}
-	g_c->blk = NULL;
-	g_c->count = 0;
-	free(g_c);
-	g_c = NULL;
+    if (!g_c)
+        return;
+
+    current = g_c->blk;
+    while (current)
+    {
+        next = current->next;
+        if (current->ptr)
+		{
+            free(current->ptr);
+			current ->ptr = NULL;
+		}
+
+        free(current);
+        current = next;
+    }
+
+    g_c->blk = NULL;
+    g_c->count = 0;
+
+    free(g_c);
 }
