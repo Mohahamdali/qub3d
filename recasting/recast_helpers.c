@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   recast_helpers.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhamdali <mhamdali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: manter <manter@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 03:11:27 by manter            #+#    #+#             */
-/*   Updated: 2025/09/29 15:57:56 by mhamdali         ###   ########.fr       */
+/*   Updated: 2025/09/22 14:12:39 by manter           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,7 @@ void draw_line(t_img *img, int x0, int y0, int x1, int y1, int color)
 {
     int dx = x1 - x0, dy = y1 - y0;
     int steps = abs(dx) > abs(dy) ? abs(dx) : abs(dy);
-    if (steps <= 0)
-    {
-        put_px(img, x0, y0, color); 
-        return; 
-    }
+    if (steps <= 0) { put_px(img, x0, y0, color); return; }
     float sx = dx / (float)steps, sy = dy / (float)steps;
     float x = (float)x0, y = (float)y0;
     for (int i = 0; i <= steps; ++i) { put_px(img, (int)(x+0.5f), (int)(y+0.5f), color); x += sx; y += sy; }

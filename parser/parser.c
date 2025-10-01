@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhamdali <mhamdali@student.42.fr>          +#+  +:+       +#+        */
+/*   By: manter <manter@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 02:59:12 by mhamdali          #+#    #+#             */
-/*   Updated: 2025/09/27 15:59:59 by mhamdali         ###   ########.fr       */
+/*   Updated: 2025/09/28 09:50:42 by manter           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,7 @@ int parser(t_file *file, t_garbage *gc, int ac, char **av)
         return (ft_putstr_fd("Error:\nInvalid file\n", 2), -1);
     if (check_walls(file) == -1)
         return (ft_putstr_fd("Error:\nMap not valid\n", 2), -1);
-    find_player_in_map(file -> map,&file->app, gc);
     fix_map_widths(file, gc);
-  
+    find_player_in_map(file->map,&file->app, gc);
     return 0;
 }

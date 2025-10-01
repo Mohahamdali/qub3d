@@ -6,13 +6,13 @@
 /*   By: mhamdali <mhamdali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 03:02:13 by manter            #+#    #+#             */
-/*   Updated: 2025/09/30 15:29:35 by mhamdali         ###   ########.fr       */
+/*   Updated: 2025/10/01 16:45:51 by mhamdali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../qub3d.h"
 
-static void build_3d(t_file *file, int var)
+static void build_3d(t_file *file, int var, float ray_angle)
 {
     float	wall_height;
 	int		start_y;
@@ -29,7 +29,7 @@ static void build_3d(t_file *file, int var)
     int wall_color = WALL_LIGHT ;
     file ->start_draw = j;
     file ->end_draw = end_y;
-    main_draw(file,&file ->app, var);
+    main_draw(file,&file ->app, var, ray_angle);
     j = file->end_draw;
     while (j < file->img.h)
         put_px(&file->img, var, j++, FLOOR_COLOR);
@@ -38,5 +38,5 @@ static void build_3d(t_file *file, int var)
 void ft_building(t_file *file, float ray_angle, int var)
 {
     (void)ray_angle;
-    build_3d(file, var);
+    build_3d(file,var ,ray_angle);
 }  

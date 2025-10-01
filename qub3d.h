@@ -6,16 +6,16 @@
 /*   By: mhamdali <mhamdali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 21:50:22 by mhamdali          #+#    #+#             */
-/*   Updated: 2025/09/30 15:29:26 by mhamdali         ###   ########.fr       */
+/*   Updated: 2025/10/01 16:42:12 by mhamdali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
+#include <libc.h>
 #include <mlx.h>
 #include <stdlib.h>
 #include <math.h>   // at top
-#include <fcntl.h>
+#include <stdbool.h>
+
 # ifndef QUB3D_H
 # define QUB3D_H
 #define TILE   64
@@ -28,6 +28,7 @@
 #define WALL_DARK     0x888888   // for the other side
 #define MOVE_STEP 5.0f     // movement speed (pixels per key press)
 #define ROT_STEP  0.1f 
+#define SPED 12
 
 static const int MAP_W = 20;
 static const int MAP_H = 15;
@@ -61,15 +62,13 @@ typedef struct s_algo{
     float y_ray_length;   // ← was int, must be float
     float hori_dist;      // should also be float
     float vert_dist;      // should also be float
-    float final_dist;  
+    float final_dist;
 }t_algo;
 
 typedef struct s_app
 {
     double player_x;
     double player_y;
-    double dir_x;
-    double dir_y;
     float  angle;
     void  *mlx;
     void  *win;
@@ -160,6 +159,6 @@ int ft_is_wall(int row, int col, t_file *file);
 void ft_building(t_file *file, float ray_angle, int var);
 int key_hook(int key, t_file *file);
 int draw_frame(t_file *file);
-void main_draw(t_file *file, t_app *app, int var);
+void main_draw(t_file *file, t_app *app, int var, float ray_ongle);
 int load_images (t_file *file);
 #endif

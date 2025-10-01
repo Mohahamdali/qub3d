@@ -6,12 +6,11 @@
 /*   By: mhamdali <mhamdali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 22:29:29 by mhamdali          #+#    #+#             */
-/*   Updated: 2025/09/30 13:57:35 by mhamdali         ###   ########.fr       */
+/*   Updated: 2025/10/01 11:35:02 by mhamdali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../qub3d.h"
-
 
 void parse_color(char *str, int color[3], t_garbage *gc)
 {
