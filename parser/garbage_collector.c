@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   garbage_collector.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manter <manter@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mhamdali <mhamdali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 00:54:14 by mhamdali          #+#    #+#             */
-/*   Updated: 2025/09/21 15:53:02 by manter           ###   ########.fr       */
+/*   Updated: 2025/10/05 17:36:14 by mhamdali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../qub3d.h"
-
-
 
 t_garbage	*gc_init(void)
 {
@@ -62,7 +60,6 @@ char	*g_strdup(t_garbage *g_c, const char *s)
 	dup[len] = '\0';
 	return (dup);
 }
-
 
 void	g_free_one_ptr(t_garbage *g_c, void *ptr)
 {

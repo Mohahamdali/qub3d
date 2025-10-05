@@ -6,10 +6,9 @@
 /*   By: mhamdali <mhamdali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 22:12:24 by mhamdali          #+#    #+#             */
-/*   Updated: 2025/08/07 00:59:30 by mhamdali         ###   ########.fr       */
+/*   Updated: 2025/10/05 16:34:44 by mhamdali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../qub3d.h"
 
@@ -57,4 +56,22 @@ int	ft_strcmp(const char *s1, const char *s2)
 		i++;
 	}
 	return (0);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2, t_garbage *gc)
+{
+	char	*result;
+
+	if (!s1 && !s2)
+		return (NULL);
+	if (s1 == NULL)
+		return (g_strdup(gc, s2));
+	else if (*s2 == '\0')
+		return (g_strdup(gc, "\0"));
+	result = ((char *)g_malloc (gc, ft_strlen(s1) + ft_strlen(s2) + 2));
+	if (!result)
+		return (NULL);
+	ft_strlcpy (result, s1, ft_strlen(s1) + 1);
+	ft_strlcat (result, s2, ft_strlen(result) + ft_strlen(s2) + 1);
+	return (result);
 }

@@ -6,10 +6,9 @@
 /*   By: mhamdali <mhamdali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 22:01:23 by mhamdali          #+#    #+#             */
-/*   Updated: 2025/08/07 01:11:03 by mhamdali         ###   ########.fr       */
+/*   Updated: 2025/10/05 16:35:01 by mhamdali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../qub3d.h"
 
@@ -32,24 +31,6 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 		i++;
 	}
 	return (dest);
-}
-
-char	*ft_strjoin(char const *s1, char const *s2, t_garbage *gc)
-{
-	char	*result;
-
-	if (!s1 && !s2)
-		return (NULL);
-	if (s1 == NULL)
-		return (g_strdup(gc, s2));
-	else if (*s2 == '\0')
-		return (g_strdup(gc, "\0"));
-	result = ((char *)g_malloc (gc, ft_strlen(s1) + ft_strlen(s2) + 2));
-	if (!result)
-		return (NULL);
-	ft_strlcpy (result, s1, ft_strlen(s1) + 1);
-	ft_strlcat (result, s2, ft_strlen(result) + ft_strlen(s2) + 1);
-	return (result);
 }
 
 int	ft_isdigit(int c)
@@ -106,4 +87,3 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t dest_size)
 	dest[i] = '\0';
 	return (length_source);
 }
-

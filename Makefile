@@ -10,11 +10,13 @@ SRCS =	main.c \
 		parser/garbage_collector.c \
 		parser/parser.c \
 		parser/find_player.c \
+		parser/if_all.c \
 		recasting/set_up.c \
 		recasting/building.c \
 		recasting/recast_helpers.c \
 		recasting/mouvment.c \
-		draw_tex/load_textures.c
+		draw_tex/load_textures.c \
+		draw_tex/load_utils.c 
 
 # === Object files ===
 OBJ = $(SRCS:.c=.o)

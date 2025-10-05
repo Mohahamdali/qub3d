@@ -6,7 +6,7 @@
 /*   By: mhamdali <mhamdali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 21:50:22 by mhamdali          #+#    #+#             */
-/*   Updated: 2025/10/01 16:42:12 by mhamdali         ###   ########.fr       */
+/*   Updated: 2025/10/05 17:05:51 by mhamdali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ typedef struct s_file
     int                 end_draw;
     int                 map_height;
     int                 map_width;
+    int                 x;
 }t_file;
 
 typedef struct s_blk
@@ -132,7 +133,12 @@ int     is_map_line(char *line);
 int     upload_file (t_file *file, char *name_file, t_garbage *gc);
 int     check_walls (t_file *file);
 void    fix_map_widths (t_file *file, t_garbage *gc);
-void find_player_in_map(char **map, t_app *p, t_garbage *gc);
+void    find_player_in_map(char **map, t_app *p, t_garbage *gc);
+void	if_all(t_file *file, char *line, int *this_is_map, t_garbage *gc);
+char    *trim_newline_and_spaces(char *str);
+void    parse_color(char *str, int color[3], t_garbage *gc);
+int     count_map_lines(char *filename, t_garbage *gc);
+void message_error (char *str, t_garbage *gc);
 //libft
 char	*g_strdup(t_garbage *g_c, const char *s);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
@@ -166,6 +172,12 @@ int ft_is_wall(int row, int col, t_file *file);
 void ft_building(t_file *file, float ray_angle, int var);
 int key_hook(int key, t_file *file);
 int draw_frame(t_file *file);
+//texteur  functions
 void main_draw(t_file *file, t_app *app, int var, float ray_ongle);
 int load_images (t_file *file);
+int load_single_img (void *mlx, t_img *img, char *path);
+t_img  *choose_tex(t_file *file, t_algo algo);
+void	draw_wall_slice(t_file *file, t_img *tex, int texx, float wall_height);
+void	init_tex_position(t_file *file, float wall_height, double step,
+			double *texpos);
 #endif

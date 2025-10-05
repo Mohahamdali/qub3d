@@ -6,7 +6,7 @@
 /*   By: mhamdali <mhamdali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 21:38:03 by mhamdali          #+#    #+#             */
-/*   Updated: 2025/10/01 11:41:59 by mhamdali         ###   ########.fr       */
+/*   Updated: 2025/10/05 16:54:14 by mhamdali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,11 @@ int main(int ac, char **av)
     t_garbage *gc = gc_init();
     if (!gc) return 1;
 
-    // Parse .cub (fills textures/colors/map; also sets player pos & angle)
     if (parser(&file, gc, ac, av) == -1) return 1;
 
-    // MLX setup
     file.app.mlx = mlx_init();
     if (!file.app.mlx) return 1;  
 
-    // DO NOT override spawn angle here (reference keeps the parsed angle)
-    // file.app.angle = 0.0f;  // ← keep this removed
-
-    // Window size from map (clamped), keep since draw_frame uses img.w/h
     int win_w = (int)(file.map_width  * (float)TILE); // we need to set a default here no need to ues the maps size 
     int win_h = (int)(file.map_height * (float)TILE);
     if (win_w < WIN_W) win_w = WIN_W;

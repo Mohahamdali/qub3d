@@ -6,7 +6,7 @@
 /*   By: mhamdali <mhamdali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 21:58:29 by mhamdali          #+#    #+#             */
-/*   Updated: 2025/08/07 03:12:37 by mhamdali         ###   ########.fr       */
+/*   Updated: 2025/10/05 17:31:44 by mhamdali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 	dst[dest_len + i] = '\0';
 	return (dest_len + src_len);
 }
+
 int	ft_isalpha(int c)
 {
 	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
@@ -62,8 +63,6 @@ int	ft_atoi(const char *str, t_garbage *gc)
 	result = 0;
 	i = 0;
 	sign = 1;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
-		i++;
 	if (str[i] == '+' || str[i] == '-')
 	{
 		if (str[i] == '-')
@@ -74,21 +73,12 @@ int	ft_atoi(const char *str, t_garbage *gc)
 	{
 		result = (result * 10) + str[i] - '0';
 		if (result > 255)
-			return (ft_putstr_fd("ERROR:\nRGB NUMBRE\n",2), exit(1), -1);
+			return (ft_putstr_fd("ERROR:\nRGB NUMBRE\n", 2), exit(1), -1);
 		i++;
 	}
-	if (str[i] == ' ')
-	{
-		ft_putstr_fd("ERROR:\nRGB\n",2);
-		cleanup_grb_cltr(gc);
-		exit(1);
-	}
-	int result_sign = result * sign;
-	if (result_sign < 0)
-	{
-		ft_putstr_fd("ERROR:\nRGB NUMBRE\n",2);
-		cleanup_grb_cltr(gc);
-		exit(1);
-	}
-	return (result_sign);
+	if (str[i] != '\0')
+		message_error("ERROR:\nRGB INVALID CHAR\n", gc);
+	if ((int)(result * sign) < 0)
+		message_error("ERROR:\nRGB NUMBRE\n", gc);
+	return ((int)(result * sign));
 }
