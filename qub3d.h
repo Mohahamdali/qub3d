@@ -10,11 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libc.h>
-#include <mlx.h>
+#include <unistd.h>
+
+#include "minilibx-linux/mlx.h"
 #include <stdlib.h>
 #include <math.h>   // at top
 #include <stdbool.h>
+#include <fcntl.h>      // for open()
+#include <unistd.h>     // for read(), write(), close()
+#include <stdio.h>      // for perror()
 
 # ifndef QUB3D_H
 # define QUB3D_H
@@ -24,7 +28,8 @@
 # define PI      3.14159265359
 #define CEILING_COLOR 0x87CEEB   // sky blue
 #define FLOOR_COLOR   0x4B5320   // dark olive
-#define WALL_LIGHT    0xAAAAAA   // for one side
+#define WALL_LIGHT 0x007700  // A bit brighter dark green
+ // for one side
 #define WALL_DARK     0x888888   // for the other side
 #define MOVE_STEP 5.0f     // movement speed (pixels per key press)
 #define ROT_STEP  0.1f 
@@ -63,6 +68,8 @@ typedef struct s_algo{
     float hori_dist;      // should also be float
     float vert_dist;      // should also be float
     float final_dist;
+   double wall_hit_x;  // ← النقطة الدقيقة X
+    double wall_hit_y;
 }t_algo;
 
 typedef struct s_app

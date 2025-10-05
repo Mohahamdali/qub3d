@@ -2,6 +2,7 @@
 #include "../qub3d.h"
 
 
+
 int load_single_img (void *mlx, t_img *img, char *path)
 {
     img ->ptr = mlx_xpm_file_to_image(mlx, path, &img ->w, &img ->h);
@@ -28,6 +29,7 @@ int load_images (t_file *file)
         return 1;
     return 0;
 }
+
 
 t_img  *choose_tex(t_file *file, t_algo algo)
 {
@@ -58,20 +60,40 @@ void main_draw(t_file *file, t_app *app, int x, float ray_angle)
     
     float wall_height = (float)file->img.h / app->algo.final_dist;
     
-
     double wall_p;
+    
     if (app->algo.wall_side == 0)
-        wall_p = app->player_y + app->algo.final_dist * sin(ray_angle);
+    {
+        double wall_x_pixel;
+        if (app->algo.x_step_sign > 0)
+            wall_x_pixel = app->algo.x_pos * TILE;
+        else
+            wall_x_pixel = (app->algo.x_pos + 1) * TILE;
+        
+        double t = (wall_x_pixel - app->player_y) / cos(ray_angle);
+        double wall_y_pixel = app->player_x + t * sin(ray_angle);
+        
+        wall_p = wall_y_pixel / (double)TILE;
+    }
     else
-        wall_p = app->player_x + app->algo.final_dist * cos(ray_angle);
+    {
+        double wall_y_pixel;
+        if (app->algo.y_step_sign > 0)
+            wall_y_pixel = app->algo.y_pos * TILE;
+        else
+            wall_y_pixel = (app->algo.y_pos + 1) * TILE;
+        
+        double t = (wall_y_pixel - app->player_x) / sin(ray_angle);
+        double wall_x_pixel = app->player_y + t * cos(ray_angle);
+        
+        wall_p = wall_x_pixel / (double)TILE;
+    }
     
     wall_p -= floor(wall_p);
     
     int texx = (int)(wall_p * tex->w);
-    if (texx >= tex->w) 
-        texx = tex->w - 1;
-    if (texx < 0)
-        texx = 0;
+    if (texx >= tex->w) texx = tex->w - 1;
+    if (texx < 0) texx = 0;
     
     if ((app->algo.wall_side == 0 && app->algo.x_step_sign > 0) ||
         (app->algo.wall_side == 1 && app->algo.y_step_sign < 0))
@@ -79,30 +101,26 @@ void main_draw(t_file *file, t_app *app, int x, float ray_angle)
     
     double step = (double)tex->h / wall_height;
     double texPos = 0;
-
-    //notice part mohima can optimize fiha 
-
-    // if (file->start_draw > (file->img.h / 2) - (wall_height / 2))
-    // {
-    //     int clipped = file->start_draw - ((file->img.h / 2) - (wall_height / 2));
-    //     texPos = clipped * step;
-    // }
-    
+     if (file->start_draw > (file->img.h / 2) - (wall_height / 2))
+    {
+        int clipped = file->start_draw - ((file->img.h / 2) - (wall_height / 2));
+        texPos = clipped * step;
+    }
     int y = file->start_draw;
-    while (y < file->end_draw )
+    while (y < file->end_draw)
     {
         int texY = (int)texPos;
-        if (texY < 0) 
-            texY = 0;
-        if (texY >= tex->h)
+        if (texY < 0)
+             texY = 0;
+        if (texY >= tex->h) 
             texY = tex->h - 1;
+            
         char *pixel = tex->data + (texY * tex->line_len + texx * (tex->bpp / 8));
         unsigned char b = pixel[0];
         unsigned char g = pixel[1];
         unsigned char r = pixel[2];
         
         int color = (r << 16) | (g << 8) | b;
-        
         put_px(&file->img, x, y, color);
         
         texPos += step;

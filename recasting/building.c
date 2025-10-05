@@ -37,6 +37,5 @@ static void build_3d(t_file *file, int var, float ray_angle)
 
 void ft_building(t_file *file, float ray_angle, int var)
 {
-    (void)ray_angle;
     build_3d(file,var ,ray_angle);
 }  

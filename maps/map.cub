@@ -1,7 +1,7 @@
-NO ./maps/x.xpm
-SO ./maps/x.xpm
-WE ./maps/x.xpm
-EA ./maps/x.xpm
+NO ./maps/message.txt
+SO ./maps/message.txt
+WE ./maps/message.txt
+EA ./maps/message.txt
 
 F 255,100,0
 C 225,30,0

@@ -42,48 +42,48 @@ int key_hook(int key, t_file *file)
 {
     float new_x, new_y;
 
-    if (key == 53) // ESC
+    if (key == 65307) // ESC
         exit(0);
-        // rotate left (← arrow)
-    if (key == 123)
+    // rotate left (← arrow)
+    if (key == 65361)
         file->app.angle -= ROT_STEP;
     // rotate right (→ arrow)
-    if (key == 124)
+    if (key == 65363)
         file->app.angle += ROT_STEP;
     // forward (W)
-    if (key == 13) {
+    if (key == 119) {
         new_x = file->app.player_x + sin(file->app.angle) * SPED;
         new_y = file->app.player_y + cos(file->app.angle) * SPED;
         if (!is_wall(new_x, new_y, file)) {
-			file->app.player_x += SPED * sin(file->app.angle);
-			file->app.player_y += SPED * cos(file->app.angle);
+            file->app.player_x += SPED * sin(file->app.angle);
+            file->app.player_y += SPED * cos(file->app.angle);
         }
     }
     // backward (S)
-    if (key == 1) {
+    if (key == 115) {
         new_x = file->app.player_x - sin(file->app.angle) * SPED;
         new_y = file->app.player_y - cos(file->app.angle) * SPED;
         if (!is_wall(new_x, new_y, file)) {
-			file->app.player_x -= SPED * sin(file->app.angle);
-			file->app.player_y -= SPED * cos(file->app.angle);
+            file->app.player_x -= SPED * sin(file->app.angle);
+            file->app.player_y -= SPED * cos(file->app.angle);
         }
     }
     // strafe left (A)
-    if (key == 0) {
-        new_x = file->app.player_x  - sin(file->app.angle + M_PI_2) * SPED;
+    if (key == 97) {
+        new_x = file->app.player_x - sin(file->app.angle + M_PI_2) * SPED;
         new_y = file->app.player_y - cos(file->app.angle + M_PI_2) * SPED;
         if (!is_wall(new_x, new_y, file)) {
-			file->app.player_x -= sin(file->app.angle + (PI / 2)) * SPED;
-			file->app.player_y -= cos(file->app.angle + (PI / 2)) * SPED;
+            file->app.player_x -= sin(file->app.angle + (M_PI / 2)) * SPED;
+            file->app.player_y -= cos(file->app.angle + (M_PI / 2)) * SPED;
         }
     }
     // strafe right (D)
-    if (key == 2) {
-        new_x = file->app.player_x  + sin(file->app.angle + M_PI_2) * SPED;
-        new_y = file->app.player_y  + cos(file->app.angle + M_PI_2) * SPED;
-        if (!is_wall(new_x, new_y ,file)) {
-			file->app.player_x += sin(file->app.angle + (PI / 2))* SPED;
-			file->app.player_y += cos(file->app.angle + (PI / 2)) * SPED;
+    if (key == 100) {
+        new_x = file->app.player_x + sin(file->app.angle + M_PI_2) * SPED;
+        new_y = file->app.player_y + cos(file->app.angle + M_PI_2) * SPED;
+        if (!is_wall(new_x, new_y, file)) {
+            file->app.player_x += sin(file->app.angle + (M_PI / 2)) * SPED;
+            file->app.player_y += cos(file->app.angle + (M_PI / 2)) * SPED;
         }
     }
 
@@ -91,4 +91,3 @@ int key_hook(int key, t_file *file)
     draw_frame(file);
     return (0);
 }
-

@@ -1,3 +1,4 @@
+# === Source files ===
 SRCS =	main.c \
 		parser/lib_utils.c \
 		parser/lib_utils_2.c \
@@ -15,20 +16,29 @@ SRCS =	main.c \
 		recasting/mouvment.c \
 		draw_tex/load_textures.c
 
+# === Object files ===
 OBJ = $(SRCS:.c=.o)
+
+# === Executable name ===
 NAME = qub3d
 
+# === Compiler and flags ===
 CC = cc
-CFLAGS =
+CFLAGS = 
 
+# === Clean command ===
 RM = rm -f
-MLX_INC =
-MLXFLAGS = -lmlx -framework OpenGL -framework AppKit -Ofast
 
+# === MiniLibX paths for Linux ===
+MLX_DIR = minilibx-linux
+MLX_INC = -I$(MLX_DIR)
+MLX_LIB = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
+
+# === Build target ===
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) $(MLXFLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(MLX_LIB) -o $(NAME)
 
 %.o: %.c qub3d.h
 	$(CC) $(CFLAGS) $(MLX_INC) -c $< -o $@

@@ -14,7 +14,7 @@
 
 static void ft_dda_init(t_app *app, float ray_angle)
 {
-    app->algo.x_pos = (int) (app->player_y / (float)TILE);
+    app->algo.x_pos = (int) (app->player_y/ (float)TILE);
     app->algo.y_pos = (int) (app->player_x / (float)TILE);
     app->algo.x_ray_length = fabs(1 / cos(ray_angle));
 	app->algo.y_ray_length = fabs(1 / sin(ray_angle));
@@ -48,10 +48,8 @@ static  void ft_chek_dir(t_app *app, float ray_angle)
 		(app->player_x / (float)TILE)) * app->algo.y_ray_length;
     }
 }
-
 static void ft_calc_dist(t_file *file, float ray_angle)
 {
-    (void) ray_angle;
     while(1)
     {
         if (file->app.algo.hori_dist < file->app.algo.vert_dist)
@@ -67,16 +65,24 @@ static void ft_calc_dist(t_file *file, float ray_angle)
             file->app.algo.wall_side = 1;
         }
         if (ft_is_wall(file->app.algo.y_pos, file->app.algo.x_pos, file))
-            break ;
-            
+            break;
     }
+    
+    // Get distance in grid units
     if (!file->app.algo.wall_side)
         file->app.algo.final_dist = file->app.algo.hori_dist - file->app.algo.x_ray_length;
     else
         file->app.algo.final_dist = file->app.algo.vert_dist - file->app.algo.y_ray_length;
+    
+    // FIXED: Calculate wall hit coordinates BEFORE fisheye correction
+    // final_dist is in grid units, so multiply by TILE to get pixels
+    double pixel_dist = file->app.algo.final_dist * TILE;
+    file->app.algo.wall_hit_x = file->app.player_x + pixel_dist * cos(ray_angle);
+    file->app.algo.wall_hit_y = file->app.player_y + pixel_dist * sin(ray_angle);
+    
+    // Apply fisheye correction (only affects rendering height)
     file->app.algo.final_dist *= cos(file->app.angle - ray_angle);
 }
-
 static void cast_ray_stop_at_wall(t_file *file, float ray_angle , int var)
 {
     ft_dda_init(&file->app, ray_angle);
