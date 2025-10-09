@@ -6,7 +6,7 @@
 /*   By: mhamdali <mhamdali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 22:29:29 by mhamdali          #+#    #+#             */
-/*   Updated: 2025/10/05 18:00:06 by mhamdali         ###   ########.fr       */
+/*   Updated: 2025/10/09 14:09:57 by mhamdali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	parse_color(char *str, int color[3], t_garbage *gc)
 	i = 0;
 	tmp = str;
 	if (!((*tmp >= '0' && *tmp <= '9') || *tmp != '-' || *tmp != '+'))
-		message_error("bro RGB its numbers not characters\n", gc);
+		message_error("Error\nRGB\n", gc);
 	while (i < 3)
 	{
 		token = tmp;
@@ -40,7 +40,7 @@ void	parse_color(char *str, int color[3], t_garbage *gc)
 			tmp++;
 		}
 		if (!token[0])
-			message_error("less rgb\n", gc);
+			message_error("Error\nrgb\n", gc);
 		color[i++] = ft_atoi(token, gc);
 	}
 	if (*tmp != '\0')

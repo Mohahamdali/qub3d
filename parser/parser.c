@@ -6,7 +6,7 @@
 /*   By: mhamdali <mhamdali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 02:59:12 by mhamdali          #+#    #+#             */
-/*   Updated: 2025/10/05 17:32:58 by mhamdali         ###   ########.fr       */
+/*   Updated: 2025/10/09 14:33:23 by mhamdali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ static void	check_file_name(int ac, char *av)
 
 	if (ac != 2)
 	{
-		write(2, "error argument\n", 16);
+		write(2, "Error\nerror argument\n", 16);
 		exit(1);
 	}
 	len = ft_strlen(av);
 	if (len >= 4 && ft_strcmp(av + (len - 4), ".cub") != 0)
 	{
-		ft_putstr_fd("Error file name not valid\n", 2);
+		ft_putstr_fd("Error\nfile name not valid\n", 2);
 		exit(1);
 	}
 }
@@ -93,9 +93,7 @@ int	parser(t_file *file, t_garbage *gc, int ac, char **av)
 	if (check_walls(file) == -1)
 		return (ft_putstr_fd("Error:\nMap not valid\n", 2), -1);
 	if (check_map_up(file->map, file->map_height) == -1)
-	{
-		return (ft_putstr_fd("Error:\nMap not valid\n", 2), -1);
-	}
+		return (ft_putstr_fd("Error:\nMap not valid\n", 2), -1);	
 	fix_map_widths(file, gc);
 	find_player_in_map(file->map, &file->app, gc);
 	return (0);
