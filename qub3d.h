@@ -6,7 +6,7 @@
 /*   By: mhamdali <mhamdali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 21:50:22 by mhamdali          #+#    #+#             */
-/*   Updated: 2025/10/05 17:05:51 by mhamdali         ###   ########.fr       */
+/*   Updated: 2025/10/09 20:24:23 by mhamdali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ typedef struct s_algo{
     float hori_dist;      // should also be float
     float vert_dist;      // should also be float
     float final_dist;
-   double wall_hit_x;  // ← النقطة الدقيقة X
-    double wall_hit_y;
 }t_algo;
 
 typedef struct s_app
@@ -137,7 +135,7 @@ void    find_player_in_map(char **map, t_app *p, t_garbage *gc);
 void	if_all(t_file *file, char *line, int *this_is_map, t_garbage *gc);
 char    *trim_newline_and_spaces(char *str);
 void    parse_color(char *str, int color[3], t_garbage *gc);
-int     count_map_lines(char *filename, t_garbage *gc);
+int     count_map_lines(char *filename);
 void message_error (char *str, t_garbage *gc);
 //libft
 char	*g_strdup(t_garbage *g_c, const char *s);

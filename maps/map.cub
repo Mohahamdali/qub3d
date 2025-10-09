@@ -1,9 +1,9 @@
-NO ./maps/message.xpm
+NO ./maps/BRICK_1A.xpm
 SO ./maps/nwe.xpm
 WE ./maps/x.xpm
-EA ./maps/message.xpm
+EA ./maps/BRICK_3B.xpm
 
-F 255,100,0,
+F 255,100,2
 C 225,30,0
 
        1111111111111111111111111

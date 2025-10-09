@@ -6,7 +6,7 @@
 /*   By: mhamdali <mhamdali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 21:38:03 by mhamdali          #+#    #+#             */
-/*   Updated: 2025/10/05 16:54:14 by mhamdali         ###   ########.fr       */
+/*   Updated: 2025/10/09 15:25:04 by mhamdali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ int main(int ac, char **av)
     t_garbage *gc = gc_init();
     if (!gc) return 1;
 
-    if (parser(&file, gc, ac, av) == -1) return 1;
-
+    if (parser(&file, gc, ac, av) == -1)
+        return 1;
     file.app.mlx = mlx_init();
-    if (!file.app.mlx) return 1;  
-
-    int win_w = (int)(file.map_width  * (float)TILE); // we need to set a default here no need to ues the maps size 
+    if (!file.app.mlx) 
+        return 1;  
+    int win_w = (int)(file.map_width  * (float)TILE);
     int win_h = (int)(file.map_height * (float)TILE);
     if (win_w < WIN_W) win_w = WIN_W;
     if (win_h < WIN_H) win_h = WIN_H;
@@ -37,15 +37,14 @@ int main(int ac, char **av)
     file.img.h = win_h;
     if (load_images(&file))
     {
-        printf("Error: failed to load textures\n");
+        printf("Error:\nfailed to load textures\n");
         cleanup_grb_cltr(gc);
         return 1;
     }
-    // Hooks: input + close + continuous render
-    mlx_hook(file.app.win,  2, 1L<<0, (int (*)(void))key_hook, &file);     // KeyPress
-    // If you add key_release:  mlx_hook(file.app.win, 3, 1L<<1, key_release, &file);
-    mlx_hook(file.app.win, 17, 0, (int (*)(void))close_hook, &file.app);   // DestroyNotify
-    mlx_loop_hook(file.app.mlx, (int (*)(void *))draw_frame, &file);       // per-frame update
+    mlx_hook(file.app.win,  2, 1L<<0, (int (*)(void))key_hook, &file); 
+
+    mlx_hook(file.app.win, 17, 0, (int (*)(void))close_hook, &file.app);   
+    mlx_loop_hook(file.app.mlx, (int (*)(void *))draw_frame, &file);    
 
     mlx_loop(file.app.mlx);
     return 0;

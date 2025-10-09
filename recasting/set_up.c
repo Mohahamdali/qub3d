@@ -6,11 +6,12 @@
 /*   By: mhamdali <mhamdali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 02:53:19 by manter            #+#    #+#             */
-/*   Updated: 2025/10/05 13:27:09 by mhamdali         ###   ########.fr       */
+/*   Updated: 2025/10/09 15:24:49 by mhamdali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../qub3d.h"
+
 
 static void ft_dda_init(t_app *app, float ray_angle)
 {

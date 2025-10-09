@@ -22,11 +22,11 @@ SRCS =	main.c \
 OBJ = $(SRCS:.c=.o)
 
 # === Executable name ===
-NAME = qub3d
+NAME = cub3d
 
 # === Compiler and flags ===
 CC = cc
-CFLAGS = 
+CFLAGS = -Wall -Wextra -Werror
 
 # === Clean command ===
 RM = rm -f

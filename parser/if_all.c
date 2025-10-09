@@ -6,7 +6,7 @@
 /*   By: mhamdali <mhamdali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 16:35:40 by mhamdali          #+#    #+#             */
-/*   Updated: 2025/10/09 14:13:08 by mhamdali         ###   ########.fr       */
+/*   Updated: 2025/10/09 20:04:37 by mhamdali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ static void	handle_colors(t_file *file, char *line, t_garbage *gc)
 			cleanup_grb_cltr(gc);
 			exit(1);
 		}
-		parse_color(trim_newline_and_spaces(line + 2), file->floor_color, gc);
+		parse_color(trim_newline_and_spaces(line + 2),
+			file->floor_color, gc);
 		file->flag.floor_color_set = 1;
 	}
 	else if (ft_strncmp(line, "C ", 2) == 0)
@@ -89,7 +90,8 @@ static void	handle_colors(t_file *file, char *line, t_garbage *gc)
 			cleanup_grb_cltr(gc);
 			exit(1);
 		}
-		parse_color(trim_newline_and_spaces(line + 2), file->cealing_color, gc);
+		parse_color(trim_newline_and_spaces(line + 2),
+			file->cealing_color, gc);
 		file->flag.cealing_color_set = 1;
 	}
 }
@@ -106,8 +108,8 @@ static void	process_line(t_file *file, char *line, t_garbage *gc)
 		&& ft_strncmp(line, "F ", 2) != 0
 		&& ft_strncmp(line, "C ", 2) != 0)
 	{
-		message_error("Error\nCheck if all required identifiers are present\n", \
-			gc);
+		message_error("Error\nCheck if all required identifiers"
+			" are present\n", gc);
 	}
 }
 
@@ -116,9 +118,10 @@ void	if_all(t_file *file, char *line, int *this_is_map, t_garbage *gc)
 	if (!*this_is_map && is_map_line(line))
 	{
 		*this_is_map = 1;
-		if (file -> flag.floor_color_set  == 0|| file -> flag.cealing_color_set == 0)
-		message_error("Error\nCheck if all required identifiers are present\n", \
-			gc);
+		if (file->flag.floor_color_set == 0
+			|| file->flag.cealing_color_set == 0)
+			message_error("Error\nCheck if all required identifiers"
+				" are present\n", gc);
 		return ;
 	}
 	process_line(file, line, gc);

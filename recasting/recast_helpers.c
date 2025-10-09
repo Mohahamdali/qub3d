@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   recast_helpers.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: manter <manter@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mhamdali <mhamdali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 03:11:27 by manter            #+#    #+#             */
-/*   Updated: 2025/09/22 14:12:39 by manter           ###   ########.fr       */
+/*   Updated: 2025/10/09 15:24:13 by mhamdali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../qub3d.h"
+
 
 inline int ft_is_wall(int row, int col, t_file *file)
 {

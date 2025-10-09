@@ -6,7 +6,7 @@
 /*   By: mhamdali <mhamdali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/01 01:26:56 by mhamdali          #+#    #+#             */
-/*   Updated: 2025/10/05 17:09:18 by mhamdali         ###   ########.fr       */
+/*   Updated: 2025/10/09 20:23:51 by mhamdali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*trim_newline_and_spaces(char *str)
 	return (str);
 }
 
-int	count_map_lines(char *filename, t_garbage *gc)
+int	count_map_lines(char *filename)
 {
 	int		fd;
 	char	*line;

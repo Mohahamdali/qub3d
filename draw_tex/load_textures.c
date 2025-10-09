@@ -6,7 +6,7 @@
 /*   By: mhamdali <mhamdali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 16:31:58 by mhamdali          #+#    #+#             */
-/*   Updated: 2025/10/05 16:33:06 by mhamdali         ###   ########.fr       */
+/*   Updated: 2025/10/09 19:53:27 by mhamdali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	main_draw(t_file *file, t_app *app, int x, float ray_angle)
 	double	wall_p;
 	int		texx;
 
-    file -> x = x;
+	file->x = x;
 	tex = choose_tex(file, app->algo);
 	if (!tex)
 		return ;

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhamdali <mhamdali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/31 22:29:29 by mhamdali          #+#    #+#             */
-/*   Updated: 2025/10/09 14:09:57 by mhamdali         ###   ########.fr       */
+/*   Created: 2025/10/09 20:09:22 by mhamdali          #+#    #+#             */
+/*   Updated: 2025/10/09 20:24:06 by mhamdali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,13 @@ void	parse_color(char *str, int color[3], t_garbage *gc)
 		token = tmp;
 		while (*tmp && *tmp != ',')
 			tmp++;
-		if (*tmp)
-		{
-			*tmp = '\0';
-			tmp++;
-		}
+		if (*tmp == ',' && i != 2)
+			*tmp++ = '\0';
 		if (!token[0])
 			message_error("Error\nrgb\n", gc);
 		color[i++] = ft_atoi(token, gc);
+		if (i == 3 && *tmp == ',')
+			message_error("Error\nToo many values for RGB\n", gc);
 	}
 	if (*tmp != '\0')
 		message_error("Error rgb\n", gc);
@@ -49,7 +48,8 @@ void	parse_color(char *str, int color[3], t_garbage *gc)
 
 static int	init_file_data(t_file *file, char *name_file, t_garbage *gc)
 {
-	file->map_height = count_map_lines(name_file, gc);
+	(void)gc;
+	file->map_height = count_map_lines(name_file);
 	if (file->map_height <= 0)
 		return (-1);
 	file->map = g_malloc(gc, sizeof(char *) * (file->map_height + 1));
@@ -61,9 +61,8 @@ static int	init_file_data(t_file *file, char *name_file, t_garbage *gc)
 static void	process_file_line(t_file *file, char *line,
 	int *i, t_garbage *gc)
 {
-	int	this_is_map;
+	static int	this_is_map = 0;
 
-	this_is_map = 0;
 	if (!this_is_map)
 		if_all(file, line, &this_is_map, gc);
 	if (this_is_map)

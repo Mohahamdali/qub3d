@@ -6,7 +6,7 @@
 /*   By: mhamdali <mhamdali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 03:02:13 by manter            #+#    #+#             */
-/*   Updated: 2025/10/01 16:45:51 by mhamdali         ###   ########.fr       */
+/*   Updated: 2025/10/09 20:24:32 by mhamdali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static void build_3d(t_file *file, int var, float ray_angle)
 	j = 0;
     while (j < start_y)
 		put_px(&file->img, var, j++, CEILING_COLOR);
-    int wall_color = WALL_LIGHT ;
     file ->start_draw = j;
     file ->end_draw = end_y;
     main_draw(file,&file ->app, var, ray_angle);
