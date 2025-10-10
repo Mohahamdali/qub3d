@@ -1,14 +1,70 @@
-/// players angle in the first step 
-/// we need to set a default in the (file.map.w) no need to ues the maps size 
-/// in the recasting remove the fish eye fecte from the final dist
+texture not found  ->segv
+emty space in last of file ->segv
+new line in last of map ->segv
+╰─$ ./qub3d .cub   mtranich hadi lahafdak  filename.cub (subjects)
 
-//// be shure ffrom the 
-    app->algo.x_pos = (int) (app->player_y / (float)TILE);
-    app->algo.y_pos = (int) (app->player_x / (float)TILE);
-/// take care of the mouvments and seg
-/// why noot sending map[i][j] and not 
-                p->player_x = (j * TILE) + TILE / 2;  // pixels
-                p->player_y = (i * TILE) + TILE / 2;  // pixels
+this is invalid 
+1011
+1111
+1N1
+1 11
+1 11
+1 11
+1 11
+1 11
+1 11
+1 11
+1 11
+1 11
+1 11
+1 11
+1
+1 11
+
+rgb only number and ,
+C 205,249,-00000
+
+➜  test mohsine git:(master) ✗ ./qub3d map.cub
+[1]    67707 segmentation fault  ./qub3d map.cub
+111
+1S1
+1 1
+1 1
+1 1
+1 1
+1 1
+1 1
+1 1
+1 1
+1 1
+1 1
+1 1
+1 1
+1 1
 
 
-re uns=derstande all in a reel 2d and 3d visulisation 
+#define CEILING_COLOR 0x87CEEB   // sky blue
+#define FLOOR_COLOR   0x4B5320   // dark olive
+
+F 0,00000,00000
+C 00000,00000,00000
+
+the argb color must be vblack in this case
+
+
+9alb texture north m3a south  o east m3a west 
+
+before include mlx
+
+# ifndef QUB3D_H
+# define QUB3D_H
+
+unused file f header file.h
+
+
+extuable file cub3D wla chof subject 
+
+
+mt9edch dewr player o  ngle f de9a wahda  (ma3rftch wach kayna f subject wa lakin rah game khassa tkon smoth)
+
+                                                                                                                                                                                                                                                                   130 ↵

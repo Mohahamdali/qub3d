@@ -6,7 +6,7 @@
 /*   By: mhamdali <mhamdali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 16:35:40 by mhamdali          #+#    #+#             */
-/*   Updated: 2025/10/09 20:04:37 by mhamdali         ###   ########.fr       */
+/*   Updated: 2025/10/10 12:13:27 by mhamdali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static void	handle_colors(t_file *file, char *line, t_garbage *gc)
 			cleanup_grb_cltr(gc);
 			exit(1);
 		}
-		parse_color(trim_newline_and_spaces(line + 2),
+		file ->rgb_color_f = parse_color(trim_newline_and_spaces(line + 2),
 			file->floor_color, gc);
 		file->flag.floor_color_set = 1;
 	}
@@ -90,7 +90,7 @@ static void	handle_colors(t_file *file, char *line, t_garbage *gc)
 			cleanup_grb_cltr(gc);
 			exit(1);
 		}
-		parse_color(trim_newline_and_spaces(line + 2),
+		file ->rgb_color_c = parse_color(trim_newline_and_spaces(line + 2),
 			file->cealing_color, gc);
 		file->flag.cealing_color_set = 1;
 	}

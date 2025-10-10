@@ -6,7 +6,7 @@
 /*   By: mhamdali <mhamdali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 21:58:29 by mhamdali          #+#    #+#             */
-/*   Updated: 2025/10/05 17:31:44 by mhamdali         ###   ########.fr       */
+/*   Updated: 2025/10/10 12:04:49 by mhamdali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,8 @@ int	ft_atoi(const char *str, t_garbage *gc)
 	result = 0;
 	i = 0;
 	sign = 1;
-	if (str[i] == '+' || str[i] == '-')
-	{
-		if (str[i] == '-')
-			sign = sign * -1;
+	if (str[i] == '+')
 		i++;
-	}
 	while (str[i] != '\0' && str[i] >= '0' && str[i] <= '9' )
 	{
 		result = (result * 10) + str[i] - '0';

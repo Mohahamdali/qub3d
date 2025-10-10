@@ -6,7 +6,7 @@
 /*   By: mhamdali <mhamdali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 21:50:22 by mhamdali          #+#    #+#             */
-/*   Updated: 2025/10/09 20:24:23 by mhamdali         ###   ########.fr       */
+/*   Updated: 2025/10/10 12:13:14 by mhamdali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ typedef struct s_file
     int                 map_height;
     int                 map_width;
     int                 x;
+    int                 rgb_color_f;
+    int                 rgb_color_c;
 }t_file;
 
 typedef struct s_blk
@@ -134,9 +136,10 @@ void    fix_map_widths (t_file *file, t_garbage *gc);
 void    find_player_in_map(char **map, t_app *p, t_garbage *gc);
 void	if_all(t_file *file, char *line, int *this_is_map, t_garbage *gc);
 char    *trim_newline_and_spaces(char *str);
-void    parse_color(char *str, int color[3], t_garbage *gc);
+int     parse_color(char *str, int color[3], t_garbage *gc);
 int     count_map_lines(char *filename);
-void message_error (char *str, t_garbage *gc);
+void    message_error (char *str, t_garbage *gc);
+int     check_cell(char **map, int y, int x, int map_height);
 //libft
 char	*g_strdup(t_garbage *g_c, const char *s);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);

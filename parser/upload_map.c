@@ -6,7 +6,7 @@
 /*   By: mhamdali <mhamdali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 20:09:22 by mhamdali          #+#    #+#             */
-/*   Updated: 2025/10/09 20:24:06 by mhamdali         ###   ########.fr       */
+/*   Updated: 2025/10/10 12:11:16 by mhamdali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	message_error(char *str, t_garbage *gc)
 	exit(1);
 }
 
-void	parse_color(char *str, int color[3], t_garbage *gc)
+int	parse_color(char *str, int color[3], t_garbage *gc)
 {
 	int		i;
 	char	*tmp;
@@ -44,6 +44,7 @@ void	parse_color(char *str, int color[3], t_garbage *gc)
 	}
 	if (*tmp != '\0')
 		message_error("Error rgb\n", gc);
+	return ((color[0] << 16) | (color[1] << 8) | color[2]);
 }
 
 static int	init_file_data(t_file *file, char *name_file, t_garbage *gc)

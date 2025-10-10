@@ -6,7 +6,7 @@
 /*   By: mhamdali <mhamdali@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 02:59:12 by mhamdali          #+#    #+#             */
-/*   Updated: 2025/10/09 20:05:14 by mhamdali         ###   ########.fr       */
+/*   Updated: 2025/10/10 12:05:59 by mhamdali         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,37 +43,21 @@ static void	init_structs(t_walls_textures *textures, t_flag_dup *flag)
 	flag->we_set = 0;
 }
 
-int	check_cell_up(char **map, int y, int x)
-{
-	int	upper_len;
-
-	if (y <= 0)
-		return (-1);
-	upper_len = ft_strlen(map[y - 1]);
-	if (x >= upper_len || map[y - 1][x] == '\0')
-		return (-1);
-	if (map[y - 1][x] != '1' && map[y - 1][x] != '0'
-		&& map[y - 1][x] != 'N' && map[y - 1][x] != 'S'
-		&& map[y - 1][x] != 'E' && map[y - 1][x] != 'W')
-		return (-1);
-	return (0);
-}
-
-int	check_map_up(char **map, int map_height)
+int	check_map_walls(char **map, int map_height)
 {
 	int	y;
 	int	x;
 
-	y = 1;
+	y = 0;
 	while (y < map_height)
 	{
 		x = 0;
 		while (map[y][x])
 		{
-			if (map[y][x] == '0' || map[y][x] == 'N' || map[y][x] == 'S'
-				|| map[y][x] == 'E' || map[y][x] == 'W')
+			if (map[y][x] == '0' || map[y][x] == 'N' ||
+				map[y][x] == 'S' || map[y][x] == 'E' || map[y][x] == 'W')
 			{
-				if (check_cell_up(map, y, x) != 0)
+				if (check_cell(map, y, x, map_height) != 0)
 					return (-1);
 			}
 			x++;
@@ -92,7 +76,7 @@ int	parser(t_file *file, t_garbage *gc, int ac, char **av)
 		return (ft_putstr_fd("Error:\nInvalid file\n", 2), -1);
 	if (check_walls(file) == -1)
 		return (ft_putstr_fd("Error:\nMap not valid\n", 2), -1);
-	if (check_map_up(file->map, file->map_height) == -1)
+	if (check_map_walls(file->map, file->map_height) == -1)
 		return (ft_putstr_fd("Error:\nMap not valid\n", 2), -1);
 	fix_map_widths(file, gc);
 	find_player_in_map(file->map, &file->app, gc);
